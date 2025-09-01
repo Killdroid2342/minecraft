@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Minecraft-inspired color palette */
+    --background: 135 50% 85%; /* Light sky blue */
+    --foreground: 0 0% 15%; /* Dark text */
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 15%;
+
+    /* Minecraft block colors */
+    --grass: 120 60% 35%; /* Grass green */
+    --dirt: 30 40% 35%; /* Dirt brown */
+    --stone: 210 15% 45%; /* Stone gray */
+    --wood: 25 50% 40%; /* Wood brown */
+
+    --primary: 120 60% 35%; /* Grass green as primary */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 30 40% 35%; /* Dirt brown as secondary */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 15% 90%;
+    --muted-foreground: 0 0% 40%;
+
+    --accent: 25 50% 40%; /* Wood brown as accent */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 80%;
+    --input: 0 0% 95%;
+    --ring: 120 60% 35%;
+
+    --radius: 0.125rem; /* Sharper, more blocky corners */
+    
+    /* Game-specific colors */
+    --sky: 200 100% 70%;
+    --ui-bg: 0 0% 20% / 0.8;
+    --ui-border: 0 0% 60%;
+    --crosshair: 0 0% 100%;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 200 50% 20%; /* Darker sky for night */
+    --foreground: 0 0% 95%;
+
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 95%;
+
+    --grass: 120 40% 25%;
+    --dirt: 30 30% 25%;
+    --stone: 210 10% 30%;
+    --wood: 25 40% 30%;
+
+    --primary: 120 40% 25%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 30 30% 25%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 70%;
+
+    --accent: 25 40% 30%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 60% 40%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 30%;
+    --input: 0 0% 15%;
+    --ring: 120 40% 25%;
+    
+    --sky: 200 80% 30%;
+    --ui-bg: 0 0% 10% / 0.9;
+    --ui-border: 0 0% 40%;
+    --crosshair: 0 0% 100%;
+    
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 120 40% 25%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 30%;
+    --sidebar-ring: 120 40% 25%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-sky text-foreground font-mono;
+    cursor: none; /* Hide cursor for immersive gameplay */
+    overflow: hidden; /* Prevent scrolling */
+  }
+
+  /* Minecraft-style pixelated font */
+  .pixel-font {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    image-rendering: pixelated;
+    -webkit-font-smoothing: none;
+  }
+
+  /* Game UI styles */
+  .crosshair {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  .crosshair::before,
+  .crosshair::after {
+    content: '';
+    position: absolute;
+    background: hsl(var(--crosshair));
+  }
+
+  .crosshair::before {
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    transform: translateY(-50%);
+  }
+
+  .crosshair::after {
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    transform: translateX(-50%);
+  }
+
+  /* Inventory styles */
+  .inventory-slot {
+    @apply border-2 border-ui-border bg-muted/50;
+    width: 48px;
+    height: 48px;
+    image-rendering: pixelated;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .inventory-slot.selected {
+    @apply border-primary bg-primary/20;
+  }
+
+  /* Block types for UI */
+  .block-grass { @apply bg-grass; }
+  .block-dirt { @apply bg-secondary; }
+  .block-stone { @apply bg-stone; }
+  .block-wood { @apply bg-accent; }
+}

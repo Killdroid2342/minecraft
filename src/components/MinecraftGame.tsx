@@ -85,6 +85,15 @@ const MinecraftGame: React.FC = () => {
     generateTerrain();
   }, []);
 
+  const createBlockMesh = useCallback((blockType: BlockType): THREE.Mesh => {
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshLambertMaterial({ color: BLOCK_COLORS[blockType] });
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    return mesh;
+  }, []);
+
   const generateTerrain = useCallback(() => {
     if (!blocksGroupRef.current) return;
 
@@ -118,15 +127,6 @@ const MinecraftGame: React.FC = () => {
       }
     }
   }, [createBlockMesh]);
-
-  const createBlockMesh = useCallback((blockType: BlockType): THREE.Mesh => {
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshLambertMaterial({ color: BLOCK_COLORS[blockType] });
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    return mesh;
-  }, []);
 
   const removeBlockMesh = useCallback((position: THREE.Vector3) => {
     const key = `${position.x},${position.y},${position.z}`;
